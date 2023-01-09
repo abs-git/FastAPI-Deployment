@@ -1,0 +1,9 @@
+$ docker-compose up -d
+$ docker images
+$ docker ps
+$ docker restart [container_name]
+
+
+if no use the docker-compose
+$ docker build -t [container_name] .
+$ docker run -p 80:8080 [container_name]
