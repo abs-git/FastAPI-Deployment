@@ -1,12 +1,11 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from app.model.model import prediction
-
+from app.model import inference
 
 app = FastAPI()
 
 class Input(BaseModel):
-    text: str
+    eye_writing_character: dict
 
 class Output(BaseModel):
     cls: str
@@ -16,8 +15,15 @@ class Output(BaseModel):
 def home():
     return {"title": "Hello Coder follower :)"}
 
+@app.get('/upload')
+def upload():
+    return {'disc': 'upload a data'}
 
 @app.post('/predict', response_model=Output)
 def predict(data: Input):
-    cls = prediction(data)
+    cls = inference.prediction(data)
+
+    # 이미지 출력
+
+
     return {'character': cls}
