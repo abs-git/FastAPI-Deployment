@@ -1,12 +1,9 @@
 ## FastAPI-Deployment
 
-![Flowchart](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9f47ce23-91f4-480c-a9fe-2352012eb00c/Untitled.png)
-
-
+![Untitled](https://user-images.githubusercontent.com/48580174/213379888-870d4879-81bd-4716-adfa-3b6aaea1cdda.png)
 
 
 ### Quick start
-
 
 ~~~
 $ cd FastAPI-Deployment/fastapi-docker
