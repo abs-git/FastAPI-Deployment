@@ -13,21 +13,17 @@ app = FastAPI()
 
 templates = Jinja2Templates(directory='templates')
 
-###### Home : Jinja2 test ######
-
-@app.get('/home/', response_class=HTMLResponse)
-def home(request: Request):
+@app.get('/root/', response_class=HTMLResponse)
+def root(request: Request):
     context = {'request': request}
     return templates.TemplateResponse('home.html', context)
 
-@app.get('/home/{user_name}', response_class=HTMLResponse)
-def write_home(request: Request, user_name: str):
+@app.get('/root/{user_name}', response_class=HTMLResponse)
+def write_root(request: Request, user_name: str):
     context = {'request': request,
                'username': user_name}
     return templates.TemplateResponse('home.html', context)
 
-
-###### Upload a file -> predict the class -> display the result ######
 
 UPLOAD_FILES_DIR = './uploaded_files/'
 
