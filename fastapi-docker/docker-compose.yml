@@ -1,8 +1,11 @@
-version: '0.1'
+version: '3.8'
 services: 
     app:
-        build: .
+        build: 
+            context: .
+            dockerfile: api.Dockerfile
         container_name: "core-api-container"
+        image: donghyun-compose:latest
         ports: 
             - 8000:8080
         volumes: 
