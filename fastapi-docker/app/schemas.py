@@ -1,7 +1,7 @@
 from fastapi import Form, File, UploadFile
 from pydantic import BaseModel
 
-class AwesomForm(BaseModel):
+class AwesomeForm(BaseModel):
     username: str
     password: str
     file: UploadFile

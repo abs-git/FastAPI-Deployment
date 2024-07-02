@@ -23,6 +23,12 @@ docker pull 936433886933.dkr.ecr.ap-northeast-2.amazonaws.com/test-app:latest
 
 ```shell
 
+# test app
+cd FastAPI-Deployment/fastapi-docker
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8080
+
+# run docker
+
 cd FastAPI-Deployment/fastapi-docker
 docker-compose up -d
 docker images                 # check the images

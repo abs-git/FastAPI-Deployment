@@ -2,28 +2,32 @@ import shutil
 import os
 import json
 
+import time
+
 from fastapi import FastAPI, Request, Depends
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
-from .schemas import AwesomForm
-from .model import inference
+from app.schemas import AwesomeForm
+from app.model import inference
 
 app = FastAPI()
 
-templates = Jinja2Templates(directory='templates')
+ROOT = os.path.dirname(os.path.abspath(__file__))
 
-@app.get('/root/', response_class=HTMLResponse)
-def root(request: Request):
-    context = {'request': request}
-    return templates.TemplateResponse('home.html', context)
+templates = Jinja2Templates(directory=os.path.join(ROOT, 'templates'))
 
 @app.get('/root/{user_name}', response_class=HTMLResponse)
-def write_root(request: Request, user_name: str):
+def root_get(request: Request, user_name: str):
     context = {'request': request,
-               'username': user_name}
+               'username': user_name, 
+               'date': time.time()}
     return templates.TemplateResponse('home.html', context)
 
+@app.post('/root/', response_class=HTMLResponse)
+def root_post(request: Request):
+    context = {'request': request}
+    return templates.TemplateResponse('home.html', context)
 
 UPLOAD_FILES_DIR = './uploaded_files/'
 
@@ -33,19 +37,9 @@ def get_form(request: Request):
     return templates.TemplateResponse('awesome.html', context) 
 
 @app.post('/awesome', response_class=HTMLResponse)
-def post_form(request: Request, info: AwesomForm = Depends(AwesomForm.as_form)):
-
-    # file upload and save
-    with open(UPLOAD_FILES_DIR + f'{info.file.filename}', 'wb') as buffer:
-        shutil.copyfileobj(info.file.file, buffer)
-
-    # load the saved file
-    file_path = os.path.join(UPLOAD_FILES_DIR, f'{info.file.filename}')
-    with open(file_path, 'r') as f:
-        data = json.load(f)
-
-    # predict the class and save the plot images
-    results = inference.prediction(data)
+def post_form(request: Request, info: AwesomeForm = Depends(AwesomeForm.as_form)):
+    
+    print(info)
 
     context = {'request': request,
                'info': info,
