@@ -48,6 +48,7 @@ cd FastAPI-Deployment/fastapi-docker
 docker build -t donghyun-fastapi -f api.Dockerfile .
 doker run -dit -p 8000:8080 --name donghyun-fastapi donghyun-fastapi
 
+
 # docker compose test
 cd FastAPI-Deployment/fastapi-docker
 docker-compose up -d
